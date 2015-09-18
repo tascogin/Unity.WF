@@ -1,18 +1,17 @@
 ﻿using System.Activities;
 using System.Collections.Generic;
 using Microsoft.Practices.Unity;
-using NUnit.Framework;
-using Unity.WF;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Unity.WF.SampleActivities;
 
 namespace Unity.WF.Tests
 {
-    [TestFixture]
+    [TestClass]
     public sealed class WorkflowExtensionTests
     {
         private IUnityContainer _container;
 
-        [TestFixtureSetUp]
+        [TestInitialize]
         public void Initialise()
         {
             _container = new UnityContainer();
@@ -21,10 +20,10 @@ namespace Unity.WF.Tests
         }
 
         ///<summary>
-        /// For simple code activities instanciated manualy all dependencies
+        /// For simple code activities instantiated manually all dependencies
         /// should be resolved without any additional extensions.
         ///</summary>
-        [Test]
+        [TestMethod]
         public void SimpleCodeActivityInjectedByUnityContainer()
         {
             var activity = _container.Resolve<FirstCalculatorActivity>();
@@ -43,7 +42,7 @@ namespace Unity.WF.Tests
         /// For xaml-driven composite activities external dependencies
         /// could be injected using Workflow extension.
         ///</summary>
-        [Test]
+        [TestMethod]
         public void CompositeActivityInjectedByWorkflowExtension()
         {
             var activity = _container.Resolve<CompositeActivity>();
@@ -62,7 +61,7 @@ namespace Unity.WF.Tests
         /// For xaml-driven composite activities external dependencies
         /// could be injected using Unity extension.
         ///</summary>
-        [Test]
+        [TestMethod]
         public void CompositeActivityInjectedByUnityExtension()
         {
             _container.AddNewExtension<WorkflowExtension>();
